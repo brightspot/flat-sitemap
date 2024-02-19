@@ -1,0 +1,18 @@
+plugins {
+    id 'com.brightspot.java-core'
+    id 'com.brightspot.artifactory-publish'
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+description = 'Example'
+
+dependencies {
+    api 'com.psddev:cms-db'
+    api 'com.psddev:dari-db'
+    api 'com.psddev:dari-util'
+    api 'org.slf4j:slf4j-api'
+}
