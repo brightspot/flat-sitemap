@@ -16,14 +16,13 @@ plugins {
     id 'com.brightspot.gradle' version '1.0.0'
 }
 
-rootProject.name = 'platform-extension-example'
+rootProject.name = 'flat-sitemap'
 
 brightspot {
     projectGroup = 'com.brightspot'
 
     versions {
         brightspot = '4.5.15.8'
-        brightspotGo = '1.4.3'
         java = 8
         enforcePlatform = false
     }

@@ -8,11 +8,12 @@ java {
     withSourcesJar()
 }
 
-description = 'Example'
+description = 'Flat Sitemap'
 
 dependencies {
     api 'com.psddev:cms-db'
     api 'com.psddev:dari-db'
     api 'com.psddev:dari-util'
+    api 'com.psddev:sitemap'
     api 'org.slf4j:slf4j-api'
 }
