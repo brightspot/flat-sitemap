@@ -108,12 +108,13 @@ public class FlatSiteMapUrlRewriteFilter extends AbstractFilter implements Abstr
             String transformedPath = path.replaceAll("^/sitemap", "/flat-sitemap-content");
             if ("/flat-sitemap-content.xml".equals(transformedPath)) {
                 // Special case for /sitemap.xml when there are more than one:
-                // serve /flat-sitemap-content.1.xml. This is to avoid /sitemap.xml
-                // 404ing when the flat sitemap is enabled and the number of
-                // items in the sitemap exceeds the limit.
+                // serve /flat-sitemap.xml. This is to serve the flat sitemap
+                // index and avoid /sitemap.xml 404ing when the flat sitemap
+                // is enabled and the number of items in the sitemap exceeds
+                // the limit.
 
                 if (SiteMapUtils.getSiteMap(site, new FlatSiteMapType(), transformedPath.substring(1)) == null) {
-                    transformedPath = "/flat-sitemap-content.1.xml";
+                    transformedPath = "/flat-sitemap.xml";
                 }
             }
             return transformedPath;
@@ -122,7 +123,7 @@ public class FlatSiteMapUrlRewriteFilter extends AbstractFilter implements Abstr
         @Override
         public String getServletPath() {
             String transformedPath = transform(request.getServletPath());
-            LOGGER.info("Transformed path: " + transformedPath);
+            LOGGER.debug("Transformed path: " + transformedPath);
             return transformedPath;
         }
 
