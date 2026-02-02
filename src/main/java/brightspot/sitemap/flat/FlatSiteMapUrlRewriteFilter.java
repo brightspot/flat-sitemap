@@ -18,6 +18,9 @@ import com.psddev.cms.db.PageFilter;
 import com.psddev.cms.db.Site;
 import com.psddev.dari.db.Query;
 import com.psddev.dari.util.AbstractFilter;
+import com.psddev.dari.web.WebRequest;
+import com.psddev.dari.web.WebRequestOverride;
+import com.psddev.dari.web.servlet.ServletWebRequest;
 import com.psddev.sitemap.SiteMapConfig;
 import com.psddev.sitemap.SiteMapType;
 import com.psddev.sitemap.SiteMapUtils;
@@ -77,7 +80,10 @@ public class FlatSiteMapUrlRewriteFilter extends AbstractFilter implements Abstr
         if (servletPath.startsWith("/sitemap")
             && servletPath.endsWith(".xml")
             && isEnabledForSite(request)) {
-            chain.doFilter(new FlatSiteMapUrlRewritingHttpServletRequestWrapper(request), response);
+            FlatSiteMapUrlRewritingHttpServletRequestWrapper wrapper = new FlatSiteMapUrlRewritingHttpServletRequestWrapper(request);
+            try (WebRequestOverride override = WebRequest.override(new ServletWebRequest(wrapper))) {
+                chain.doFilter(wrapper, response);
+            }
         } else {
             super.doRequest(request, response, chain);
         }
